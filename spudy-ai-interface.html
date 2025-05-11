@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Spudy AI Interface</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <style>
         * {
@@ -32,59 +31,6 @@
             z-index: 1001;
         }
 
-        /* Navigation Bar */
-        .navbar {
-            position: fixed;
-            top: 50px;
-            width: 100%;
-            padding: 20px 50px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(0, 51, 102, 0.2);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-        }
-
-        .navbar .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        .navbar .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 30px;
-        }
-
-        .navbar .nav-links a {
-            color: #fff;
-            text-decoration: none;
-            font-size: 1rem;
-            transition: color 0.3s;
-        }
-
-        .navbar .nav-links a:hover {
-            color: #00c6ff;
-        }
-
-        .navbar .auth-btn {
-            padding: 10px 20px;
-            background: linear-gradient(45deg, #007bff, #00c6ff);
-            color: #fff;
-            text-decoration: none;
-            border-radius: 50px;
-            font-size: 1rem;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .navbar .auth-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 123, 255, 0.4);
-        }
-
         /* Hero Section with Chat Interface */
         .hero {
             position: relative;
@@ -95,8 +41,8 @@
             justify-content: center;
             text-align: center;
             overflow: hidden;
-            margin-top: 50px;
             padding: 20px;
+            margin-top: 50px;
         }
 
         #particles-js {
@@ -196,48 +142,9 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Sidebar Styles */
-        .sidebar {
-            position: fixed;
-            right: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 15px 0 0 15px;
-            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
-            z-index: 1000;
-        }
-
-        .sidebar-btn {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px 25px;
-            background: linear-gradient(45deg, #007bff, #00c6ff);
-            color: #fff;
-            text-decoration: none;
-            border-radius: 50px;
-            font-size: 1rem;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .sidebar-btn:hover {
-            transform: translateX(-10px);
-            box-shadow: 0 5px 15px rgba(0, 123, 255, 0.4);
-        }
-
-        .sidebar-btn i {
-            font-size: 1.4rem;
-        }
-
         /* Footer */
         .footer {
-            padding: 50px 20px;
+            padding: 20px;
             background: linear-gradient(135deg, #0a1a2e, #1e3a8a);
             text-align: center;
         }
@@ -247,28 +154,8 @@
             color: #d1e7ff;
         }
 
-        .footer a {
-            color: #00c6ff;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .footer a:hover {
-            color: #007bff;
-        }
-
         /* Responsive Design */
         @media (max-width: 768px) {
-            .navbar {
-                flex-direction: column;
-                gap: 20px;
-            }
-
-            .navbar .nav-links {
-                flex-direction: column;
-                gap: 15px;
-            }
-
             .hero-content h1 {
                 font-size: 2.5rem;
             }
@@ -285,49 +172,11 @@
         Spudy AI is live! Start exploring now.
     </div>
 
-    <!-- Navigation Bar -->
-    <nav class="navbar">
-        <div class="logo">Spudy AI</div>
-        <div class="nav-links">
-            <a href="#home">Home</a>
-            <a href="https://spudytv14.github.io/Spudy-Intelligence-Technology/">Spudy Intelligence</a>
-            <a href="https://spudytv14.github.io/Spudy-Production/#auth-section">Spudy Books</a>
-            <a href="#contact">Contact</a>
-            <a href="#" class="auth-btn" onclick="showModal('login')">Log In</a>
-            <a href="#" class="auth-btn" onclick="showModal('register')">Register</a>
-        </div>
-    </nav>
-
-    <!-- Login Modal -->
-    <div id="login-modal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal('login')">×</span>
-            <h2>Log In</h2>
-            <input type="email" id="login-email" placeholder="Email" required>
-            <input type="password" id="login-password" placeholder="Password" required>
-            <button onclick="submitLogin()">Log In</button>
-            <div id="login-error" class="error">Invalid email or password</div>
-        </div>
-    </div>
-
-    <!-- Register Modal -->
-    <div id="register-modal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal('register')">×</span>
-            <h2>Register</h2>
-            <input type="email" id="register-email" placeholder="Email" required>
-            <input type="password" id="register-password" placeholder="Password" required>
-            <input type="password" id="register-confirm-password" placeholder="Confirm Password" required>
-            <button onclick="submitRegister()">Register</button>
-            <div id="register-error" class="error">Registration failed. Please check your inputs.</div>
-        </div>
-    </div>
-
     <!-- Hero Section with Chat Interface -->
     <section id="home" class="hero">
         <div id="particles-js"></div>
         <div class="hero-content">
-            <h1>Welcome to Spudy AI</h1>
+            <h1>Spudy AI</h1>
             <p>Ask anything, and let Spudy AI provide intelligent, accurate responses instantly.</p>
             <div class="chat-container" id="chat-container">
                 <div class="ai-message">Hello! I'm Spudy AI. How can I assist you today?</div>
@@ -339,77 +188,16 @@
         </div>
     </section>
 
-    <!-- Sidebar with Contact and Social Media -->
-    <div class="sidebar">
-        <a href="https://wa.me/+263716669706" class="sidebar-btn whatsapp" target="_blank">
-            <i class="fab fa-whatsapp"></i> WhatsApp
-        </a>
-        <a href="tel:+263776998296" class="sidebar-btn call">
-            <i class="fas fa-phone"></i> Call Us
-        </a>
-        <a href="https://www.youtube.com/@SpudyAI" class="sidebar-btn youtube" target="_blank">
-            <i class="fab fa-youtube"></i> YouTube
-        </a>
-        <a href="https://www.facebook.com/matipaishe_blessing" class="sidebar-btn facebook" target="_blank">
-            <i class="fab fa-facebook"></i> Facebook
-        </a>
-        <a href="https://x.com/matipaishe_blessing" class="sidebar-btn twitter" target="_blank">
-            <i class="fab fa-x-twitter"></i> Twitter
-        </a>
-        <a href="https://www.instagram.com/matipaishe_blessing" class="sidebar-btn instagram" target="_blank">
-            <i class="fab fa-instagram"></i> Instagram
-        </a>
-        <a href="https://spudytv14.github.io/Spudy-Production/#auth-section" class="sidebar-btn books" target="_blank">
-            <i class="fas fa-book"></i> Spudy Books
-        </a>
-    </div>
-
     <!-- Footer -->
     <footer class="footer">
-        <p>© 2025 Spudy Intelligence Technology. All Rights Reserved. | <a href="https://spudytv14.github.io/Spudy-Intelligence-Technology/">Visit Spudy Intelligence</a></p>
+        <p>© 2025 Spudy Intelligence Technology. All Rights Reserved.</p>
     </footer>
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <script>
-        // Modal Functions
-        function showModal(type) {
-            document.getElementById(`${type}-modal`).style.display = 'flex';
-            document.getElementById(`${type}-error`).style.display = 'none';
-        }
+        let messageCount = 0;
 
-        function closeModal(type) {
-            document.getElementById(`${type}-modal`).style.display = 'none';
-        }
-
-        function submitLogin() {
-            const email = document.getElementById('login-email').value;
-            const password = document.getElementById('login-password').value;
-            const error = document.getElementById('login-error');
-
-            if (email.includes('@') && password.length >= 6) {
-                closeModal('login');
-                alert('Login successful!');
-            } else {
-                error.style.display = 'block';
-            }
-        }
-
-        function submitRegister() {
-            const email = document.getElementById('register-email').value;
-            const password = document.getElementById('register-password').value;
-            const confirmPassword = document.getElementById('register-confirm-password').value;
-            const error = document.getElementById('register-error');
-
-            if (email.includes('@') && password.length >= 6 && password === confirmPassword) {
-                closeModal('register');
-                alert('Registration successful!');
-            } else {
-                error.style.display = 'block';
-            }
-        }
-
-        // Chat Functionality
         function sendMessage() {
             const input = document.getElementById('chat-input');
             const container = document.getElementById('chat-container');
@@ -422,6 +210,9 @@
             userMessage.className = 'chat-message user-message';
             userMessage.textContent = message;
             container.appendChild(userMessage);
+
+            // Increment message count
+            messageCount++;
 
             // Simulate AI response
             setTimeout(() => {
@@ -438,13 +229,17 @@
         }
 
         function generateResponse(message) {
+            if (messageCount >= 3) {
+                return 'You are not subscribed, and the free trial has ended.';
+            }
+
             const lowerMessage = message.toLowerCase();
             if (lowerMessage.includes('hello') || lowerMessage.includes('hi')) {
                 return 'Hi there! How can Spudy AI help you today?';
             } else if (lowerMessage.includes('spudy') || lowerMessage.includes('ai')) {
                 return 'I’m Spudy AI, your intelligent assistant. Ask me anything, from coding to creative ideas!';
             } else if (lowerMessage.includes('book') || lowerMessage.includes('books')) {
-                return 'Check out our Spudy Books for insightful reads! Visit https://spudytv14.github.io/Spudy-Production/#auth-section';
+                return 'Explore our Spudy Books for insightful reads!';
             } else {
                 return 'That’s an interesting question! Could you provide more details, or would you like me to explore a specific topic?';
             }
@@ -467,30 +262,6 @@
                 modes: { repulse: { distance: 100, duration: 0.4 }, push: { particles_nb: 4 } }
             },
             retina_detect: true
-        });
-
-        // Smooth scrolling for navigation
-        document.querySelectorAll('.nav-links a:not(.auth-btn)').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                if (this.getAttribute('href').startsWith('#')) {
-                    e.preventDefault();
-                    document.querySelector(this.getAttribute('href')).scrollIntoView({
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
-
-        // Animate sidebar buttons
-        const sidebarButtons = document.querySelectorAll('.sidebar-btn');
-        sidebarButtons.forEach((btn, index) => {
-            btn.style.opacity = '0';
-            btn.style.transform = 'translateX(50px)';
-            setTimeout(() => {
-                btn.style.transition = 'all 0.5s ease';
-                btn.style.opacity = '1';
-                btn.style.transform = 'translateX(0)';
-            }, index * 150);
         });
 
         // Chat input enter key
