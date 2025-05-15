@@ -93,6 +93,16 @@
             box-shadow: 0 4px 16px rgba(59, 130, 246, 0.6);
         }
 
+        .logout-button {
+            background: linear-gradient(45deg, #ef4444, #f87171);
+            color: #fff;
+        }
+
+        .logout-button:hover {
+            background: linear-gradient(45deg, #dc2626, #ef4444);
+            box-shadow: 0 4px 16px rgba(239, 68, 68, 0.6);
+        }
+
         .user-info {
             font-size: 0.9rem;
             font-weight: 600;
@@ -590,10 +600,25 @@
         // Check login status on load
         function checkLoginStatus() {
             const user = JSON.parse(localStorage.getItem('user'));
+            const authSection = document.getElementById('auth-section');
             if (user) {
                 isLoggedIn = true;
-                const authSection = document.getElementById('auth-section');
-                authSection.innerHTML = `<span class="user-info">Logged In: ${user.name} (${user.email})</span>`;
+                authSection.innerHTML = `
+                    <span class="user-info">Logged In: ${user.name} (${user.email})</span>
+                    <button class="header-button logout-button" onclick="logout()">Logout</button>
+                `;
+            } else {
+                isLoggedIn = false;
+                authSection.innerHTML = `<button class="header-button login-button" onclick="showModal()">Log In / Register</button>`;
+            }
+        }
+
+        function logout() {
+            if (confirm('Are you sure you want to log out?')) {
+                localStorage.removeItem('user');
+                isLoggedIn = false;
+                checkLoginStatus();
+                newChat(); // Reset chat to initial state
             }
         }
 
