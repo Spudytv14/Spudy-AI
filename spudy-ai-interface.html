@@ -3,396 +3,422 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spudy AI - Luxe Interface</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <title>Spudy AI - Premium Intelligence Suite</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-dark: #1a1a1a;
-            --accent-gold: #d4af37;
-            --accent-emerald: #2a6e5a;
-            --text-light: #f5f5f5;
-            --text-muted: #a0a0a0;
-            --glass-bg: rgba(255, 255, 255, 0.05);
-            --shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
-            --gradient: linear-gradient(135deg, #2a6e5a, #1a3a2e);
+            --bg-dark: #050505;
+            --bg-panel: rgba(20, 20, 20, 0.7);
+            --accent-gold: #D4AF37;
+            --accent-gold-dim: rgba(212, 175, 55, 0.3);
+            --accent-emerald: #10B981;
+            --text-main: #E5E5E5;
+            --text-muted: #A3A3A3;
+            --glass-border: 1px solid rgba(255, 255, 255, 0.08);
+            --gold-border: 1px solid rgba(212, 175, 55, 0.4);
+            --shadow: 0 10px 40px -10px rgba(0,0,0,0.8);
+            --font-display: 'Playfair Display', serif;
+            --font-body: 'Inter', sans-serif;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Inter', sans-serif;
-            color: var(--text-light);
-            background: var(--bg-dark);
-            min-height: 100vh;
+            font-family: var(--font-body);
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            height: 100vh;
             overflow: hidden;
-            position: relative;
+            display: flex;
         }
 
         #particles-js {
-            position: fixed;
+            position: absolute;
             width: 100%;
             height: 100%;
-            background: var(--bg-dark);
             z-index: -1;
+            background: radial-gradient(circle at center, #1a1a1a 0%, #000000 100%);
         }
 
-        /* Sidebar */
+        /* --- Sidebar --- */
         .sidebar {
-            position: fixed;
-            top: 0;
-            left: 0;
             width: 280px;
-            height: 100%;
-            background: var(--glass-bg);
+            background: var(--bg-panel);
             backdrop-filter: blur(20px);
-            padding: 2rem;
-            box-shadow: var(--shadow);
+            border-right: var(--glass-border);
+            display: flex;
+            flex-direction: column;
+            padding: 1.5rem;
             z-index: 100;
             transition: transform 0.3s ease;
         }
 
-        .sidebar h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2rem;
+        .brand {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
             color: var(--accent-gold);
-            margin-bottom: 2rem;
+            margin-bottom: 2.5rem;
+            text-align: center;
+            letter-spacing: 1px;
+            text-shadow: 0 2px 10px rgba(212, 175, 55, 0.2);
+            cursor: pointer;
+        }
+
+        .nav-list {
+            flex: 1;
+            overflow-y: auto;
+            list-style: none;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: 0.8rem 1rem;
+            margin-bottom: 0.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: var(--text-muted);
+            border: 1px solid transparent;
+        }
+
+        .nav-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-main);
+        }
+
+        .nav-item.active {
+            background: linear-gradient(90deg, rgba(212, 175, 55, 0.15), transparent);
+            border-left: 2px solid var(--accent-gold);
+            color: var(--accent-gold);
+        }
+
+        .nav-icon {
+            width: 20px;
+            height: 20px;
+            margin-right: 12px;
+            fill: currentColor;
+        }
+
+        .nav-item .lock-badge {
+            margin-left: auto;
+            font-size: 0.8rem;
+            opacity: 0.6;
+        }
+
+        .user-panel {
+            margin-top: auto;
+            padding-top: 1.5rem;
+            border-top: var(--glass-border);
             text-align: center;
         }
 
-        .sidebar .service-select select {
-            width: 100%;
-            padding: 0.8rem;
+        .btn-auth {
             background: transparent;
             border: 1px solid var(--accent-gold);
-            border-radius: 0.5rem;
-            color: var(--text-light);
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
-        }
-
-        .sidebar .service-select select:hover {
-            background: rgba(212, 175, 55, 0.1);
-            transform: translateY(-2px);
-        }
-
-        .sidebar .service-select select option {
-            background: #2a2a2a;
-            color: var(--text-light);
-            font-size: 1rem;
-            padding: 0.5rem;
-        }
-
-        .sidebar .service-select select option:hover {
-            background: var(--accent-emerald);
-            color: var(--text-light);
-        }
-
-        .sidebar .header-button {
-            display: block;
-            width: 100%;
-            padding: 0.8rem;
-            margin: 0.5rem 0;
-            background: transparent;
-            border: 1px solid var(--accent-emerald);
-            border-radius: 0.5rem;
-            color: var(--text-light);
-            font-size: 0.95rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .sidebar .header-button:hover {
-            background: var(--accent-emerald);
-            color: var(--bg-dark);
-            transform: translateX(5px);
-        }
-
-        .login-button {
-            border-color: var(--accent-gold);
-            background: linear-gradient(45deg, transparent, rgba(212, 175, 55, 0.2));
-        }
-
-        .login-button:hover {
-            background: var(--accent-gold);
-            color: var(--bg-dark);
-        }
-
-        .logout-button {
-            border-color: #ef4444;
-            background: linear-gradient(45deg, transparent, rgba(239, 68, 68, 0.2));
-        }
-
-        .logout-button:hover {
-            background: #ef4444;
-            color: var(--bg-dark);
-        }
-
-        .user-info {
-            font-size: 0.9rem;
             color: var(--accent-gold);
-            margin: 1rem 0;
-            text-align: center;
+            padding: 0.6rem 1.2rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: var(--font-body);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            width: 100%;
         }
 
-        /* Main Content */
+        .btn-auth:hover {
+            background: var(--accent-gold);
+            color: #000;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+        }
+
+        /* --- Main Content --- */
         .main-content {
-            margin-left: 280px;
-            padding: 2rem;
-            height: 100vh;
+            flex: 1;
+            position: relative;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            overflow: hidden;
         }
 
-        .chat-container {
-            flex: 1;
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            border-radius: 1rem;
-            padding: 2rem;
+        /* --- Dashboard View --- */
+        .view-section {
+            display: none;
+            padding: 2rem 3rem;
+            height: 100%;
             overflow-y: auto;
-            box-shadow: var(--shadow);
+            animation: fadeIn 0.4s ease;
+        }
+
+        .view-section.active { display: block; }
+
+        .dashboard-header {
             margin-bottom: 2rem;
         }
 
-        .chat-message {
-            margin: 1rem 0;
-            padding: 1rem 1.5rem;
-            max-width: 70%;
-            font-size: 1rem;
-            line-height: 1.5;
-            position: relative;
-            border-radius: 1rem;
-            animation: slideIn 0.5s ease;
+        .dashboard-header h2 {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            color: var(--text-main);
+            margin-bottom: 0.5rem;
         }
 
-        .chat-message::after {
+        .dashboard-header p { color: var(--text-muted); }
+
+        .apps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            padding-bottom: 2rem;
+        }
+
+        .app-card {
+            background: var(--bg-panel);
+            border: var(--glass-border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            overflow: hidden;
+        }
+
+        .app-card::before {
             content: '';
             position: absolute;
-            bottom: 0;
-            width: 12px;
-            height: 12px;
-            background: inherit;
-            clip-path: polygon(0 0, 100% 0, 0 100%);
+            top: 0; left: 0; width: 100%; height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
         }
 
-        .user-message {
-            background: linear-gradient(45deg, var(--accent-gold), #e6c872);
-            margin-left: auto;
-            color: var(--bg-dark);
-        }
-
-        .user-message::after {
-            right: -6px;
-            transform: rotate(45deg);
-        }
-
-        .ai-message {
-            background: var(--gradient);
-            margin-right: auto;
-            color: var(--text-light);
-        }
-
-        .ai-message::after {
-            left: -6px;
-            transform: rotate(-45deg);
-        }
-
-        .chat-message .timestamp {
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            margin-top: 0.5rem;
-            text-align: right;
-        }
-
-        .loading-message {
-            text-align: center;
-            color: var(--accent-gold);
-            font-style: italic;
-            animation: pulse 1.2s infinite;
-        }
-
-        /* Chat Input */
-        .chat-input {
-            display: flex;
-            gap: 1rem;
-            padding: 1rem;
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            border-radius: 2rem;
+        .app-card:hover {
+            transform: translateY(-5px);
             box-shadow: var(--shadow);
-            position: sticky;
-            bottom: 1rem;
-            max-width: 800px;
-            margin: 0 auto;
+            border-color: rgba(212, 175, 55, 0.3);
         }
 
-        .chat-input input {
-            flex: 1;
-            padding: 1rem 1.5rem;
-            border: none;
-            border-radius: 1.5rem;
-            background: transparent;
-            color: var(--text-light);
-            font-size: 1rem;
-            outline: none;
-            border: 1px solid var(--accent-emerald);
-        }
+        .app-card:hover::before { opacity: 1; }
 
-        .chat-input input:focus {
-            border-color: var(--accent-gold);
-            box-shadow: 0 0 12px rgba(212, 175, 55, 0.4);
-        }
-
-        .chat-input input::placeholder {
-            color: var(--text-muted);
-        }
-
-        .chat-input button {
-            padding: 1rem 2rem;
-            background: linear-gradient(45deg, var(--accent-emerald), #3b8a6e);
-            color: var(--text-light);
-            border: none;
-            border-radius: 1.5rem;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .chat-input button:hover {
-            background: linear-gradient(45deg, var(--accent-gold), #e6c872);
-            color: var(--bg-dark);
-            transform: scale(1.05);
-        }
-
-        /* Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            z-index: 1000;
+        .card-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 8px;
+            display: flex;
             align-items: center;
             justify-content: center;
-            animation: fadeIn 0.5s ease;
-        }
-
-        .modal-content {
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            padding: 3rem;
-            border-radius: 1.5rem;
-            width: 100%;
-            max-width: 500px;
-            box-shadow: var(--shadow);
-            border: 1px solid var(--accent-gold);
-            transform: translateY(-20px);
-            animation: slideUp 0.5s ease forwards;
-        }
-
-        .modal-content h2 {
-            font-family: 'Playfair Display', serif;
+            margin-bottom: 1rem;
             color: var(--accent-gold);
-            font-size: 2rem;
-            margin-bottom: 2rem;
-            text-align: center;
         }
 
-        .modal-content input {
-            width: 100%;
-            padding: 1rem;
-            margin: 0.8rem 0;
-            border: 1px solid var(--accent-emerald);
-            border-radius: 0.75rem;
+        .card-icon svg { width: 24px; height: 24px; fill: currentColor; }
+
+        .app-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-main);
+        }
+
+        .app-card p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        .premium-tag {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(0,0,0,0.6);
+            border: 1px solid var(--accent-gold);
+            color: var(--accent-gold);
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* --- Chat View --- */
+        .chat-view {
+            display: none;
+            flex-direction: column;
+            height: 100%;
+            background: rgba(0,0,0,0.2);
+        }
+
+        .chat-view.active { display: flex; }
+
+        .chat-header {
+            padding: 1rem 2rem;
+            border-bottom: var(--glass-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(20, 20, 20, 0.8);
+        }
+
+        .chat-title {
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            color: var(--accent-gold);
+        }
+
+        .chat-area {
+            flex: 1;
+            padding: 2rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .message {
+            max-width: 80%;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            line-height: 1.5;
+            animation: slideUp 0.3s ease;
+            position: relative;
+        }
+
+        .msg-user {
+            align-self: flex-end;
+            background: linear-gradient(135deg, var(--accent-gold), #b38f2d);
+            color: #000;
+            border-bottom-right-radius: 2px;
+        }
+
+        .msg-ai {
+            align-self: flex-start;
+            background: rgba(255, 255, 255, 0.05);
+            border: var(--glass-border);
+            color: var(--text-main);
+            border-bottom-left-radius: 2px;
+        }
+
+        .input-area {
+            padding: 1.5rem 2rem;
+            background: rgba(20, 20, 20, 0.9);
+            border-top: var(--glass-border);
+        }
+
+        .input-group {
+            display: flex;
+            background: rgba(255,255,255,0.05);
+            border: var(--glass-border);
+            border-radius: 30px;
+            padding: 0.5rem;
+            transition: border-color 0.3s;
+        }
+
+        .input-group:focus-within { border-color: var(--accent-gold); }
+
+        .chat-input {
+            flex: 1;
             background: transparent;
-            color: var(--text-light);
+            border: none;
+            padding: 0.8rem 1rem;
+            color: var(--text-main);
             font-size: 1rem;
-            transition: all 0.3s ease;
+            outline: none;
         }
 
-        .modal-content input:focus {
-            border-color: var(--accent-gold);
-            box-shadow: 0 0 12px rgba(212, 175, 55, 0.4);
+        .send-btn {
+            background: var(--accent-gold);
+            color: #000;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.2s;
         }
 
-        .modal-content button {
+        .send-btn:hover { transform: scale(1.1); }
+
+        /* --- Modals --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.open { opacity: 1; pointer-events: all; }
+
+        .modal-card {
+            background: #111;
+            border: var(--gold-border);
+            padding: 2.5rem;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 450px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+
+        .modal-overlay.open .modal-card { transform: translateY(0); }
+
+        .modal-title {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            color: var(--accent-gold);
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group { margin-bottom: 1.2rem; }
+        .form-input {
             width: 100%;
             padding: 1rem;
-            margin: 0.8rem 0;
-            background: linear-gradient(45deg, var(--accent-emerald), #3b8a6e);
-            color: var(--text-light);
+            background: rgba(255,255,255,0.05);
+            border: var(--glass-border);
+            border-radius: 8px;
+            color: var(--text-main);
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .form-input:focus { border-color: var(--accent-gold); background: rgba(255,255,255,0.08); }
+
+        .btn-full {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, var(--accent-gold), #b38f2d);
+            color: #000;
             border: none;
-            border-radius: 0.75rem;
-            font-size: 1rem;
+            border-radius: 8px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
+            margin-top: 1rem;
+            transition: opacity 0.2s;
         }
 
-        .modal-content button:hover {
-            background: linear-gradient(45deg, var(--accent-gold), #e6c872);
-            color: var(--bg-dark);
-        }
+        .btn-full:hover { opacity: 0.9; }
 
-        .modal-content .toggle {
-            background: none;
-            color: var(--accent-gold);
-            font-size: 0.95rem;
-        }
-
-        .modal-content .toggle:hover {
-            color: #e6c872;
-        }
-
-        .modal-content .error {
-            color: #ef4444;
-            font-size: 0.9rem;
-            margin-bottom: 0.8rem;
+        .switch-auth {
             text-align: center;
-        }
-
-        .suggest-password {
-            background: linear-gradient(45deg, transparent, rgba(212, 175, 55, 0.2));
-        }
-
-        .suggest-password:hover {
-            background: var(--accent-gold);
-            color: var(--bg-dark);
-        }
-
-        .password-suggestions {
-            margin-top: 0.8rem;
-        }
-
-        .password-suggestion {
-            background: var(--glass-bg);
-            padding: 0.6rem;
-            margin: 0.4rem 0;
-            border-radius: 0.5rem;
+            margin-top: 1rem;
             font-size: 0.9rem;
-            color: var(--text-light);
+            color: var(--text-muted);
             cursor: pointer;
-            transition: all 0.3s ease;
         }
-
-        .password-suggestion:hover {
-            background: rgba(212, 175, 55, 0.2);
-            transform: translateX(5px);
-        }
+        .switch-auth:hover { color: var(--accent-gold); }
 
         .close-modal {
             position: absolute;
@@ -400,480 +426,369 @@
             right: 1rem;
             background: none;
             border: none;
-            color: var(--accent-gold);
+            color: var(--text-muted);
             font-size: 1.5rem;
             cursor: pointer;
-            transition: all 0.3s ease;
         }
 
-        .close-modal:hover {
-            color: #e6c872;
-        }
-
-        /* Footer */
-        .footer {
-            text-align: center;
-            padding: 1rem;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            font-weight: 600;
-        }
-
-        .chat-container::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        .chat-container::-webkit-scrollbar-track {
-            background: transparent;
-        }
-
-        .chat-container::-webkit-scrollbar-thumb {
-            background: var(--accent-gold);
-            border-radius: 4px;
-        }
-
-        /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateX(20px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-
-        @keyframes slideUp {
-            from { transform: translateY(-20px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-
+        /* --- Mobile --- */
         @media (max-width: 768px) {
             .sidebar {
-                width: 100%;
-                height: auto;
-                position: static;
+                position: fixed;
+                height: 100%;
+                transform: translateX(-100%);
+            }
+            .sidebar.mobile-open { transform: translateX(0); }
+            
+            .mobile-header {
+                display: flex;
                 padding: 1rem;
+                justify-content: space-between;
+                align-items: center;
+                background: var(--bg-dark);
+                border-bottom: var(--glass-border);
             }
-
-            .main-content {
-                margin-left: 0;
-                padding: 1rem;
-            }
-
-            .chat-input {
-                max-width: 100%;
-            }
-
-            .modal-content {
-                padding: 2rem;
-                max-width: 90%;
-            }
+            .menu-toggle { font-size: 1.5rem; color: var(--accent-gold); background: none; border: none; }
+            
+            body { flex-direction: column; }
+            .view-section { padding: 1rem; }
+            .apps-grid { grid-template-columns: 1fr; }
         }
+        
+        .mobile-header { display: none; }
+        @media (max-width: 768px) { .mobile-header { display: flex; } }
+
+        /* Animations */
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideUp { from { transform: translateY(10px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
     </style>
 </head>
 <body>
+
     <div id="particles-js"></div>
-    <aside class="sidebar">
-        <h1>Spudy AI</h1>
-        <div class="service-select">
-            <select id="service-select" onchange="selectService(this.value)" aria-label="Select a service">
-                <option value="" disabled selected>Select a service...</option>
-                <option value="advanced-reasoning">Advanced Reasoning</option>
-                <option value="ai-music">AI Music</option>
-                <option value="video-generator">Video Generator</option>
-                <option value="image-generator">Image Generator</option>
-                <option value="code-generator">Code Generator</option>
-                <option value="app-builder">App Builder</option>
-                <option value="graphic-design">Graphic Design</option>
-                <option value="presentation-maker">Presentation Maker</option>
-                <option value="text-to-speech">Text-to-Speech</option>
-                <option value="voice-cloner">Voice Cloner</option>
-                <option value="resume-builder">Resume Builder</option>
-            </select>
-        </div>
-        <button class="header-button" onclick="newChat()" aria-label="Start a new chat">New Chat</button>
-        <button class="header-button" onclick="viewHistory()" aria-label="View chat history">View History</button>
-        <button class="header-button" onclick="clearHistory()" aria-label="Clear chat history">Clear History</button>
-        <div id="auth-section">
-            <button class="header-button login-button" onclick="showModal()" aria-label="Log in or register">Log In / Register</button>
+
+    <div class="mobile-header">
+        <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+        <div class="brand" style="font-size: 1.2rem; margin: 0;">Spudy AI</div>
+        <div style="width: 24px;"></div>
+    </div>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="brand" onclick="showDashboard()">Spudy AI</div>
+        <ul class="nav-list" id="nav-list">
+            <!-- Items injected via JS -->
+        </ul>
+        <div class="user-panel" id="user-panel">
+            <button class="btn-auth" onclick="openAuthModal('login')">Login / Register</button>
         </div>
     </aside>
+
     <main class="main-content">
-        <div class="chat-container" id="chat-container">
-            <div class="chat-message ai-message">Welcome to Spudy AI. Select a service to begin.<div class="timestamp">Just now</div></div>
+        <!-- Dashboard View -->
+        <div id="dashboard-view" class="view-section active">
+            <div class="dashboard-header">
+                <h2>Welcome to Future</h2>
+                <p>Select a tool to amplify your potential.</p>
+            </div>
+            <div class="apps-grid" id="apps-grid">
+                <!-- Cards injected via JS -->
+            </div>
         </div>
-        <div class="chat-input">
-            <input type="text" id="chat-input" placeholder="Select a service to begin..." aria-label="Chat input">
-            <button onclick="sendMessage()" aria-label="Send message">Send</button>
+
+        <!-- Chat View -->
+        <div id="chat-view" class="chat-view">
+            <div class="chat-header">
+                <div class="chat-title" id="chat-title-text">Advanced Reasoning</div>
+                <button class="btn-auth" style="padding: 0.4rem 1rem; width: auto;" onclick="showDashboard()">Back to Apps</button>
+            </div>
+            <div class="chat-area" id="chat-area">
+                <!-- Messages injected via JS -->
+            </div>
+            <div class="input-area">
+                <div class="input-group">
+                    <input type="text" class="chat-input" id="chat-input" placeholder="Type your request here...">
+                    <button class="send-btn" onclick="sendMessage()">
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"></path></svg>
+                    </button>
+                </div>
+            </div>
         </div>
     </main>
-    <div class="modal" id="auth-modal">
-        <div class="modal-content">
-            <button class="close-modal" onclick="closeModal()" aria-label="Close modal">×</button>
-            <h2 id="modal-title">Log In</h2>
-            <div class="error" id="error-message"></div>
-            <input type="email" id="email" placeholder="Email" aria-label="Email">
-            <input type="text" id="name" placeholder="Name" style="display: none;" aria-label="Name">
-            <input type="password" id="password" placeholder="Password" aria-label="Password">
-            <input type="password" id="confirm-password" placeholder="Confirm Password" style="display: none;" aria-label="Confirm Password">
-            <button class="suggest-password" id="suggest-password" style="display: none;" onclick="generatePasswordSuggestions()">Suggest Password</button>
-            <div class="password-suggestions" id="password-suggestions"></div>
-            <button onclick="submitAuth()">Submit</button>
-            <button class="toggle" onclick="toggleAuthMode()">Switch to Register</button>
+
+    <!-- Auth Modal -->
+    <div class="modal-overlay" id="auth-modal">
+        <div class="modal-card">
+            <button class="close-modal" onclick="closeAuthModal()">×</button>
+            <h3 class="modal-title" id="auth-title">Welcome Back</h3>
+            <div class="form-group">
+                <input type="email" class="form-input" id="auth-email" placeholder="Email Address">
+            </div>
+            <div class="form-group" id="name-group" style="display:none;">
+                <input type="text" class="form-input" id="auth-name" placeholder="Full Name">
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-input" id="auth-pass" placeholder="Password">
+            </div>
+            <div id="auth-error" style="color: #ef4444; margin-bottom: 1rem; text-align: center; font-size: 0.9rem;"></div>
+            <button class="btn-full" onclick="submitAuth()">Continue</button>
+            <div class="switch-auth" onclick="toggleAuthMode()">New here? Create an account</div>
         </div>
     </div>
-    <footer class="footer">
-        <p>© 2025 Spudy Intelligence Technology. All Rights Reserved.</p>
-    </footer>
+
+    <!-- Premium Modal -->
+    <div class="modal-overlay" id="premium-modal">
+        <div class="modal-card" style="border-color: var(--accent-gold);">
+            <button class="close-modal" onclick="closePremiumModal()">×</button>
+            <div style="text-align: center; color: var(--accent-gold); margin-bottom: 1rem;">
+                <svg viewBox="0 0 24 24" width="60" height="60" fill="currentColor"><path d="M12 2a5 5 0 00-5 5v3H6a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2v-8a2 2 0 00-2-2h-1V7a5 5 0 00-5-5zm0 1.5a3.5 3.5 0 013.5 3.5v3h-7V7A3.5 3.5 0 0112 3.5z"/></svg>
+            </div>
+            <h3 class="modal-title">Premium Access</h3>
+            <p style="text-align: center; color: var(--text-muted); margin-bottom: 2rem;">
+                This advanced AI tool is reserved for premium members. Upgrade your plan to unlock limitless potential.
+            </p>
+            <button class="btn-full">Unlock Premium</button>
+            <button class="btn-auth" style="margin-top: 1rem; width: 100%; border: none;" onclick="closePremiumModal()">Maybe Later</button>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <script>
-        let messageCount = 0;
+        /* --- Data & State --- */
+        const services = [
+            { id: 'reasoning', name: 'Advanced Reasoning', type: 'free', desc: 'Complex problem solving and logic.', icon: 'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z' },
+            { id: 'resume', name: 'Resume Builder', type: 'free', desc: 'Craft the perfect professional resume.', icon: 'M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z' },
+            { id: 'speech', name: 'Text-to-Speech', type: 'free', desc: 'Convert written text into natural audio.', icon: 'M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z' },
+            { id: 'graphic', name: 'Graphic Design', type: 'free', desc: 'AI assistant for visual layouts.', icon: 'M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z' },
+            { id: 'music', name: 'AI Music Creator', type: 'premium', desc: 'Generate custom audio tracks.', icon: 'M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z' },
+            { id: 'video', name: 'Video Generator', type: 'premium', desc: 'Create videos from text prompts.', icon: 'M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z' },
+            { id: 'code', name: 'Code Generator', type: 'premium', desc: 'Generate clean, efficient code.', icon: 'M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z' },
+            { id: 'voice', name: 'Voice Cloner', type: 'premium', desc: 'Replicate any voice with high fidelity.', icon: 'M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zM17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z' },
+            { id: 'image', name: 'Image Generator', type: 'premium', desc: 'Turn words into stunning art.', icon: 'M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z' }
+        ];
+
+        let currentUser = JSON.parse(localStorage.getItem('user'));
         let currentService = null;
-        let chatHistory = [];
-        let isLoggedIn = localStorage.getItem('user') !== null;
         let isRegisterMode = false;
 
-        const servicePrompts = {
-            'advanced-reasoning': {
-                placeholder: 'Enter a problem for Spudy Advanced Reasoning to solve...',
-                intro: 'I’m Spudy Advanced Reasoning. Provide a complex problem, and I’ll solve it logically!',
-                response: 'Here’s a logical solution to your problem.'
-            },
-            'ai-music': {
-                placeholder: 'Enter prompt to create music using Spudy Music AI creator...',
-                intro: 'I’m Spudy AI Music. Share a music prompt, and I’ll create a custom track!',
-                response: 'Here’s a concept for your track.'
-            },
-            'video-generator': {
-                placeholder: 'Enter prompt to generate a video using Spudy Video Generator...',
-                intro: 'I’m Spudy Video Generator. Describe your video idea, and I’ll bring it to life!',
-                response: 'Here’s a video concept based on your prompt.'
-            },
-            'image-generator': {
-                placeholder: 'Enter prompt to create an image using Spudy Image Generator...',
-                intro: 'I’m Spudy Image Generator. Describe an image, and I’ll create it!',
-                response: 'Here’s an image concept based on your prompt.'
-            },
-            'code-generator': {
-                placeholder: 'Enter requirements for Spudy Code Generator to create code...',
-                intro: 'I’m Spudy Code Generator. Share your coding needs, and I’ll write the code!',
-                response: 'Here’s the code based on your requirements.'
-            },
-            'app-builder': {
-                placeholder: 'Enter app idea for Spudy App Builder to create...',
-                intro: 'I’m Spudy App Builder. Describe your app idea, and I’ll design it!',
-                response: 'Here’s an app concept.'
-            },
-            'graphic-design': {
-                placeholder: 'Enter design idea for Spudy Graphic Design to create...',
-                intro: 'I’m Spudy Graphic Design. Share your design vision, and I’ll create it!',
-                response: 'Here’s a design concept.'
-            },
-            'presentation-maker': {
-                placeholder: 'Enter topic for Spudy Presentation Maker to create slides...',
-                intro: 'I’m Spudy Presentation Maker. Provide a topic, and I’ll build a deck!',
-                response: 'Here’s a presentation outline.'
-            },
-            'text-to-speech': {
-                placeholder: 'Enter text for Spudy Text-to-Speech to convert...',
-                intro: 'I’m Spudy Text-to-Speech. Share text, and I’ll turn it into audio!',
-                response: 'Here’s how your text would sound.'
-            },
-            'voice-cloner': {
-                placeholder: 'Enter voice details for Spudy Voice Cloner to replicate...',
-                intro: 'I’m Spudy Voice Cloner. Describe a voice, and I’ll clone it!',
-                response: 'Here’s a cloned voice concept.'
-            },
-            'resume-builder': {
-                placeholder: 'Enter details for Spudy Resume Builder to create a resume...',
-                intro: 'I’m Spudy Resume Builder. Share your details, and I’ll craft a resume!',
-                response: 'Here’s a resume draft.'
-            }
-        };
-
-        particlesJS('particles-js', {
-            particles: {
-                number: { value: 50, density: { enable: true, value_area: 1000 } },
-                color: { value: ['#d4af37', '#2a6e5a'] },
-                shape: { type: ['circle', 'edge'] },
-                opacity: { value: 0.3, random: true },
-                size: { value: 3, random: true },
-                line_linked: { enable: true, distance: 150, color: '#d4af37', opacity: 0.2, width: 1 },
-                move: { enable: true, speed: 2, direction: 'none', random: true, straight: false, out_mode: 'out' }
-            },
-            interactivity: {
-                detect_on: 'canvas',
-                events: { onhover: { enable: true, mode: 'grab' }, onclick: { enable: true, mode: 'push' }, resize: true },
-                modes: { grab: { distance: 200, line_linked: { opacity: 0.4 } }, push: { particles_nb: 3 } }
-            },
-            retina_detect: true
+        /* --- Initialization --- */
+        document.addEventListener('DOMContentLoaded', () => {
+            initParticles();
+            renderSidebar();
+            renderDashboard();
+            updateUserUI();
         });
 
-        function checkLoginStatus() {
-            const user = JSON.parse(localStorage.getItem('user'));
-            const authSection = document.getElementById('auth-section');
-            if (user) {
-                isLoggedIn = true;
-                authSection.innerHTML = `
-                    <span class="user-info">Logged In: ${user.name} (${user.email})</span>
-                    <button class="header-button logout-button" onclick="logout()">Logout</button>
+        function initParticles() {
+            if(window.particlesJS) {
+                particlesJS('particles-js', {
+                    particles: {
+                        number: { value: 60 },
+                        color: { value: '#d4af37' },
+                        opacity: { value: 0.2 },
+                        size: { value: 3 },
+                        line_linked: { enable: true, color: '#d4af37', opacity: 0.1 },
+                        move: { enable: true, speed: 1 }
+                    }
+                });
+            }
+        }
+
+        /* --- Rendering --- */
+        function renderSidebar() {
+            const list = document.getElementById('nav-list');
+            list.innerHTML = services.map(s => `
+                <li class="nav-item ${currentService === s.id ? 'active' : ''}" onclick="trySelectService('${s.id}')">
+                    <svg class="nav-icon" viewBox="0 0 24 24"><path d="${s.icon}"/></svg>
+                    <span>${s.name}</span>
+                    ${s.type === 'premium' ? '<span class="lock-badge">🔒</span>' : ''}
+                </li>
+            `).join('');
+        }
+
+        function renderDashboard() {
+            const grid = document.getElementById('apps-grid');
+            grid.innerHTML = services.map(s => `
+                <div class="app-card" onclick="trySelectService('${s.id}')">
+                    ${s.type === 'premium' ? '<div class="premium-tag"><span>🔒</span> Premium</div>' : ''}
+                    <div class="card-icon"><svg viewBox="0 0 24 24"><path d="${s.icon}"/></svg></div>
+                    <h3>${s.name}</h3>
+                    <p>${s.desc}</p>
+                </div>
+            `).join('');
+        }
+
+        function updateUserUI() {
+            const panel = document.getElementById('user-panel');
+            if (currentUser) {
+                panel.innerHTML = `
+                    <div style="color: var(--accent-gold); margin-bottom: 0.5rem; font-size: 0.9rem;">${currentUser.name}</div>
+                    <button class="btn-auth" onclick="logout()">Logout</button>
                 `;
             } else {
-                isLoggedIn = false;
-                authSection.innerHTML = `<button class="header-button login-button" onclick="showModal()">Log In / Register</button>`;
+                panel.innerHTML = `<button class="btn-auth" onclick="openAuthModal('login')">Login / Register</button>`;
             }
         }
 
-        function logout() {
-            if (confirm('Are you sure you want to log out?')) {
-                localStorage.removeItem('user');
-                isLoggedIn = false;
-                checkLoginStatus();
-                newChat();
+        /* --- Interaction --- */
+        function trySelectService(id) {
+            if (!currentUser) {
+                openAuthModal('login');
+                return;
             }
+
+            const service = services.find(s => s.id === id);
+            
+            if (service.type === 'premium') {
+                document.getElementById('premium-modal').classList.add('open');
+                return;
+            }
+
+            // Grant Access
+            currentService = id;
+            renderSidebar(); // Update active state
+            
+            // Switch View
+            document.getElementById('dashboard-view').classList.remove('active');
+            document.getElementById('chat-view').classList.add('active');
+            document.getElementById('chat-title-text').textContent = service.name;
+            document.getElementById('chat-area').innerHTML = `
+                <div class="message msg-ai">
+                    Hello ${currentUser.name}. I am ready to assist you with ${service.name}.
+                    <div style="font-size: 0.7rem; margin-top: 5px; opacity: 0.6;">${new Date().toLocaleTimeString()}</div>
+                </div>
+            `;
+            
+            // Close mobile menu if open
+            document.getElementById('sidebar').classList.remove('mobile-open');
         }
 
-        function showModal() {
-            document.getElementById('auth-modal').style.display = 'flex';
-            document.getElementById('error-message').textContent = '';
-            isRegisterMode = false;
-            updateModal();
+        function showDashboard() {
+            currentService = null;
+            renderSidebar();
+            document.getElementById('dashboard-view').classList.add('active');
+            document.getElementById('chat-view').classList.remove('active');
         }
 
-        function closeModal() {
-            document.getElementById('auth-modal').style.display = 'none';
-            document.getElementById('email').value = '';
-            document.getElementById('name').value = '';
-            document.getElementById('password').value = '';
-            document.getElementById('confirm-password').value = '';
-            document.getElementById('password-suggestions').innerHTML = '';
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('mobile-open');
+        }
+
+        /* --- Chat Logic --- */
+        function sendMessage() {
+            const input = document.getElementById('chat-input');
+            const area = document.getElementById('chat-area');
+            const text = input.value.trim();
+            if (!text) return;
+
+            // User Msg
+            area.insertAdjacentHTML('beforeend', `
+                <div class="message msg-user">
+                    ${text}
+                    <div style="font-size: 0.7rem; margin-top: 5px; opacity: 0.6; text-align: right;">${new Date().toLocaleTimeString()}</div>
+                </div>
+            `);
+            input.value = '';
+            area.scrollTop = area.scrollHeight;
+
+            // Mock AI Response
+            setTimeout(() => {
+                const responses = [
+                    "That's an interesting perspective. Here is what I found...",
+                    "Processing your request with high-tier logic...",
+                    "I have generated the result you asked for.",
+                    "Here is a detailed breakdown of the solution."
+                ];
+                const reply = responses[Math.floor(Math.random() * responses.length)];
+                
+                area.insertAdjacentHTML('beforeend', `
+                    <div class="message msg-ai">
+                        ${reply}
+                        <div style="font-size: 0.7rem; margin-top: 5px; opacity: 0.6;">${new Date().toLocaleTimeString()}</div>
+                    </div>
+                `);
+                area.scrollTop = area.scrollHeight;
+            }, 1000);
+        }
+        
+        document.getElementById('chat-input').addEventListener('keypress', (e) => {
+            if(e.key === 'Enter') sendMessage();
+        });
+
+        /* --- Auth Logic --- */
+        function openAuthModal(mode) {
+            isRegisterMode = mode === 'register';
+            renderAuthModal();
+            document.getElementById('auth-modal').classList.add('open');
+        }
+
+        function closeAuthModal() {
+            document.getElementById('auth-modal').classList.remove('open');
         }
 
         function toggleAuthMode() {
             isRegisterMode = !isRegisterMode;
-            updateModal();
+            renderAuthModal();
         }
 
-        function updateModal() {
-            const title = document.getElementById('modal-title');
-            const nameInput = document.getElementById('name');
-            const confirmPassword = document.getElementById('confirm-password');
-            const suggestPassword = document.getElementById('suggest-password');
-            const toggleButton = document.querySelector('.toggle');
-            title.textContent = isRegisterMode ? 'Register' : 'Log In';
-            nameInput.style.display = isRegisterMode ? 'block' : 'none';
-            confirmPassword.style.display = isRegisterMode ? 'block' : 'none';
-            suggestPassword.style.display = isRegisterMode ? 'block' : 'none';
-            toggleButton.textContent = isRegisterMode ? 'Switch to Log In' : 'Switch to Register';
-            document.getElementById('password-suggestions').innerHTML = '';
+        function renderAuthModal() {
+            const title = document.getElementById('auth-title');
+            const nameGroup = document.getElementById('name-group');
+            const switchText = document.querySelector('.switch-auth');
+            
             if (isRegisterMode) {
-                generatePasswordSuggestions();
+                title.textContent = 'Create Account';
+                nameGroup.style.display = 'block';
+                switchText.textContent = 'Already have an account? Login';
+            } else {
+                title.textContent = 'Welcome Back';
+                nameGroup.style.display = 'none';
+                switchText.textContent = 'New here? Create an account';
             }
-        }
-
-        function validateEmail(email) {
-            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            return re.test(email);
-        }
-
-        function validatePassword(password) {
-            const re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-            return re.test(password);
-        }
-
-        function generatePassword() {
-            const lower = 'abcdefghijklmnopqrstuvwxyz';
-            const upper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-            const numbers = '0123456789';
-            const special = '@$!%*?&';
-            const all = lower + upper + numbers + special;
-
-            let password = '';
-            password += lower[Math.floor(Math.random() * lower.length)];
-            password += upper[Math.floor(Math.random() * upper.length)];
-            password += numbers[Math.floor(Math.random() * numbers.length)];
-            password += special[Math.floor(Math.random() * special.length)];
-
-            for (let i = 4; i < 12; i++) {
-                password += all[Math.floor(Math.random() * all.length)];
-            }
-
-            password = password.split('').sort(() => Math.random() - 0.5).join('');
-            return password;
-        }
-
-        function generatePasswordSuggestions() {
-            const suggestionsDiv = document.getElementById('password-suggestions');
-            suggestionsDiv.innerHTML = '';
-            for (let i = 0; i < 3; i++) {
-                const password = generatePassword();
-                const suggestion = document.createElement('div');
-                suggestion.className = 'password-suggestion';
-                suggestion.textContent = password;
-                suggestion.onclick = () => {
-                    document.getElementById('password').value = password;
-                    document.getElementById('confirm-password').value = password;
-                };
-                suggestionsDiv.appendChild(suggestion);
-            }
+            document.getElementById('auth-error').textContent = '';
         }
 
         function submitAuth() {
-            const email = document.getElementById('email').value.trim();
-            const name = document.getElementById('name').value.trim();
-            const password = document.getElementById('password').value;
-            const confirmPassword = document.getElementById('confirm-password').value;
-            const errorMessage = document.getElementById('error-message');
+            const email = document.getElementById('auth-email').value;
+            const pass = document.getElementById('auth-pass').value;
+            const name = document.getElementById('auth-name').value;
+            const error = document.getElementById('auth-error');
 
-            errorMessage.textContent = '';
-
-            if (!validateEmail(email)) {
-                errorMessage.textContent = 'Invalid email format.';
+            if (!email || !pass || (isRegisterMode && !name)) {
+                error.textContent = 'Please fill in all fields.';
                 return;
             }
 
-            if (!validatePassword(password)) {
-                errorMessage.textContent = 'Password must be at least 8 characters, include uppercase, lowercase, number, and special character.';
-                return;
-            }
-
-            if (isRegisterMode && password !== confirmPassword) {
-                errorMessage.textContent = 'Passwords do not match.';
-                return;
-            }
-
-            if (isRegisterMode && !name) {
-                errorMessage.textContent = 'Name is required for registration.';
-                return;
-            }
-
-            const user = { email, name: isRegisterMode ? name : email.split('@')[0] };
-            localStorage.setItem('user', JSON.stringify(user));
-            isLoggedIn = true;
-            closeModal();
-            checkLoginStatus();
-        }
-
-        function selectService(service) {
-            currentService = service;
-            const chatContainer = document.getElementById('chat-container');
-            const chatInput = document.getElementById('chat-input');
-            const user = JSON.parse(localStorage.getItem('user'));
-            const greeting = isLoggedIn ? `Good day to you, ${user.name}!` : 'Welcome!';
-            chatContainer.innerHTML = `<div class="chat-message ai-message">${greeting} ${servicePrompts[service].intro}<div class="timestamp">${new Date().toLocaleTimeString()}</div></div>`;
-            chatInput.placeholder = servicePrompts[service].placeholder;
-            messageCount = 0;
-            saveHistory();
-        }
-
-        function sendMessage() {
-            const input = document.getElementById('chat-input');
-            const container = document.getElementById('chat-container');
-            const message = input.value.trim();
-
-            if (!message || !currentService) return;
-
-            const userMessage = document.createElement('div');
-            userMessage.className = 'chat-message user-message';
-            userMessage.innerHTML = `<div>${message}</div><div class="timestamp">${new Date().toLocaleTimeString()}</div>`;
-            container.appendChild(userMessage);
-
-            messageCount++;
-
-            const loadingDiv = document.createElement('div');
-            loadingDiv.className = 'chat-message ai-message loading-message';
-            loadingDiv.textContent = 'Crafting response...';
-            container.appendChild(loadingDiv);
-
-            setTimeout(() => {
-                container.removeChild(loadingDiv);
-                const aiMessage = document.createElement('div');
-                aiMessage.className = 'chat-message ai-message';
-                aiMessage.innerHTML = `<div>${generateResponse(message)}</div><div class="timestamp">${new Date().toLocaleTimeString()}</div>`;
-                container.appendChild(aiMessage);
-                container.scrollTop = container.scrollHeight;
-                saveHistory();
-            }, 500);
-
-            input.value = '';
-            container.scrollTop = container.scrollHeight;
-        }
-
-        function generateResponse(message) {
-            if (!isLoggedIn) {
-                return 'Please log in or register to continue.';
-            }
-            const user = JSON.parse(localStorage.getItem('user'));
-            if (messageCount > 1) {
-                return 'Please subscribe for more answers.';
-            }
-            if (currentService) {
-                return `Good day to you, ${user.name}! ${servicePrompts[currentService].response}`;
-            }
-            return 'Please select a service to get started.';
-        }
-
-        function newChat() {
-            const chatContainer = document.getElementById('chat-container');
-            const chatInput = document.getElementById('chat-input');
-            const serviceSelect = document.getElementById('service-select');
-            chatContainer.innerHTML = `<div class="chat-message ai-message">Welcome to Spudy AI. Select a service to begin.<div class="timestamp">${new Date().toLocaleTimeString()}</div></div>`;
-            chatInput.placeholder = 'Select a service to begin...';
-            serviceSelect.value = '';
-            currentService = null;
-            messageCount = 0;
-            saveHistory();
-        }
-
-        function saveHistory() {
-            const chatContainer = document.getElementById('chat-container');
-            chatHistory.push({
-                service: currentService,
-                messages: chatContainer.innerHTML,
-                placeholder: document.getElementById('chat-input').placeholder
-            });
-        }
-
-        function viewHistory() {
-            const chatContainer = document.getElementById('chat-container');
-            if (chatHistory.length === 0) {
-                chatContainer.innerHTML = `<div class="chat-message ai-message">No chat history available.<div class="timestamp">${new Date().toLocaleTimeString()}</div></div>`;
-                return;
-            }
-            const lastChat = chatHistory[chatHistory.length - 1];
-            chatContainer.innerHTML = lastChat.messages;
-            document.getElementById('chat-input').placeholder = lastChat.placeholder;
-            document.getElementById('service-select').value = lastChat.service || '';
-            currentService = lastChat.service;
-        }
-
-        function clearHistory() {
-            chatHistory = [];
-            newChat();
-            const chatContainer = document.getElementById('chat-container');
-            chatContainer.innerHTML = `<div class="chat-message ai-message">Chat history cleared. Select a service to start!<div class="timestamp">${new Date().toLocaleTimeString()}</div></div>`;
-        }
-
-        document.getElementById('chat-input').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                sendMessage();
-            }
-        });
-
-        document.getElementById('password').addEventListener('focus', function() {
             if (isRegisterMode) {
-                generatePasswordSuggestions();
+                currentUser = { name, email };
+                localStorage.setItem('user', JSON.stringify(currentUser));
+                closeAuthModal();
+                updateUserUI();
+            } else {
+                // Mock Login - accept any email for demo purposes if valid format
+                if (email.includes('@')) {
+                    // Try to get existing name or default
+                    const existing = JSON.parse(localStorage.getItem('user'));
+                    currentUser = existing && existing.email === email ? existing : { name: email.split('@')[0], email };
+                    localStorage.setItem('user', JSON.stringify(currentUser));
+                    closeAuthModal();
+                    updateUserUI();
+                } else {
+                    error.textContent = 'Invalid email address.';
+                }
             }
-        });
+        }
 
-        checkLoginStatus();
+        function logout() {
+            localStorage.removeItem('user');
+            currentUser = null;
+            updateUserUI();
+            showDashboard();
+        }
+
+        function closePremiumModal() {
+            document.getElementById('premium-modal').classList.remove('open');
+        }
+
     </script>
 </body>
 </html>
